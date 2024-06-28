@@ -35,8 +35,7 @@ const retrieveProductByIdFromDb = async (id: string) => {
 // update product by id
 const updateProductByIdFromDb = async (id: string, info: any) => {
     try {
-        const result = await ProductModel.findOneAndUpdate({ _id: id }, info);
-        console.log(id, info)
+        const result = await ProductModel.findOneAndUpdate({ _id: id }, info, { new: true, useFindAndModify: false });
         return result;
     } catch (err: any) {
         throw new Error(err.message);

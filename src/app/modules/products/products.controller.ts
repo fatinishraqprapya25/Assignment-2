@@ -72,7 +72,7 @@ const updateProduct = async (req: Request, res: Response) => {
     try {
         const info = req.body;
         const id = req.params.productId;
-        const result = ProductServices.updateProductByIdFromDb(id, info);
+        const result = await ProductServices.updateProductByIdFromDb(id, info);
 
         res.status(200).json({
             success: true,
@@ -88,4 +88,5 @@ const updateProduct = async (req: Request, res: Response) => {
 }
 
 
+// exports
 export const productController = { createProduct, retrieveProduct, retrieveProductById, updateProduct };
