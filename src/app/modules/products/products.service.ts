@@ -64,7 +64,6 @@ const searchProductsInDb = async (searchTerm: string) => {
         };
 
         const products = await ProductModel.find(query);
-        console.log(products);
         return products;
 
     } catch (err: any) {
