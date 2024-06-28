@@ -18,5 +18,3 @@ export interface Products {
     variants: Variant[];
     inventory: Inventory;
 }
-
-export default Products;
