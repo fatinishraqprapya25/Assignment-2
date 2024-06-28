@@ -12,4 +12,14 @@ const insertProductIntoDb = async (productData: Products) => {
     }
 }
 
-export const ProductServices = { insertProductIntoDb };
+// retreiving all products from database
+const retrieveDataFromDb = async () => {
+    try {
+        const result = await ProductModel.find({});
+        return result;
+    } catch (err: any) {
+        throw new Error(err.message);
+    }
+}
+
+export const ProductServices = { insertProductIntoDb, retrieveDataFromDb };
