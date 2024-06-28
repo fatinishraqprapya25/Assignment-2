@@ -1,23 +1,23 @@
 import Joi from 'joi';
 
-const variantSchema = Joi.object({
+const variantValidationSchema = Joi.object({
     type: Joi.string().required(),
     value: Joi.string().required()
 });
 
-const inventorySchema = Joi.object({
+const inventoryValidationSchema = Joi.object({
     quantity: Joi.number().required(),
     inStock: Joi.boolean().required()
 });
 
-const productSchema = Joi.object({
+const productValidationSchema = Joi.object({
     name: Joi.string().required(),
     description: Joi.string().required(),
     price: Joi.number().required(),
     category: Joi.string().required(),
     tags: Joi.array().items(Joi.string()).required(),
-    variants: Joi.array().items(variantSchema).required(),
-    inventory: inventorySchema.required()
+    variants: Joi.array().items(variantValidationSchema).required(),
+    inventory: inventoryValidationSchema.required()
 });
 
-export default productSchema;
+export default productValidationSchema;
