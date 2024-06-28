@@ -16,14 +16,14 @@ const createProduct = async (req: Request, res: Response) => {
                 data: productCreationData
             });
         } else {
-            res.status(200).json({
+            res.status(500).json({
                 success: false,
                 message: error.message,
             });
         }
 
     } catch (err: any) {
-        res.status(200).json({
+        res.status(500).json({
             success: false,
             message: "Error Occured on Product Creation",
         });
@@ -32,6 +32,7 @@ const createProduct = async (req: Request, res: Response) => {
 
 // controller for retrieving all products
 const retrieveProduct = async (req: Request, res: Response) => {
+    console.log("hi ")
     try {
         const products = await ProductServices.retrieveDataFromDb();
         res.status(200).json({
@@ -40,11 +41,31 @@ const retrieveProduct = async (req: Request, res: Response) => {
             data: products
         });
     } catch (err: any) {
-        res.status(200).json({
+        res.status(500).json({
             success: false,
             message: err.message,
         });
     }
 }
 
-export const productController = { createProduct, retrieveProduct };
+// controller for finding product by id
+const retrieveProductById = async (req: Request, res: Response) => {
+    try {
+        const id = req.params.productId;
+        console.log(id);
+        const result = await ProductServices.retrieveProductByIdFromDb(id);
+        res.status(200).json({
+            success: true,
+            message: "Product fetched successfully!",
+            data: result
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: true,
+            message: err.message,
+        });
+    }
+}
+
+
+export const productController = { createProduct, retrieveProduct, retrieveProductById };

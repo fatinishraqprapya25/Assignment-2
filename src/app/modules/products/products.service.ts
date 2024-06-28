@@ -22,4 +22,14 @@ const retrieveDataFromDb = async () => {
     }
 }
 
-export const ProductServices = { insertProductIntoDb, retrieveDataFromDb };
+// retreive product by id
+const retrieveProductByIdFromDb = async (id: string) => {
+    try {
+        const result = await ProductModel.findOne({ _id: id });
+        return result;
+    } catch (err: any) {
+        throw new Error(err.message);
+    }
+}
+
+export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb };
