@@ -25,14 +25,13 @@ const createProduct = async (req: Request, res: Response) => {
     } catch (err: any) {
         res.status(500).json({
             success: false,
-            message: "Error Occured on Product Creation",
+            message: err.message,
         });
     }
 }
 
 // controller for retrieving all products
 const retrieveProduct = async (req: Request, res: Response) => {
-    console.log("hi ")
     try {
         const products = await ProductServices.retrieveDataFromDb();
         res.status(200).json({
@@ -105,5 +104,26 @@ const deleteProduct = async (req: Request, res: Response) => {
     }
 }
 
+
+// search product
+const searchProducts = async (req: Request, res: Response) => {
+    console.log("searching...")
+    try {
+        const searchTerm = req.params.searchTerm;
+        const result: any = await ProductServices.searchProductsInDb(searchTerm);
+        res.status(200).json({
+            success: true,
+            message: "successfully searched",
+            data: result
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+}
+
+
 // exports
-export const productController = { createProduct, retrieveProduct, retrieveProductById, updateProduct, deleteProduct };
+export const productController = { createProduct, retrieveProduct, retrieveProductById, updateProduct, deleteProduct, searchProducts };

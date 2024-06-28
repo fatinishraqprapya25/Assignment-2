@@ -48,8 +48,28 @@ const deleteProductByIdFromDb = async (id: string) => {
         const res = await ProductModel.findOneAndDelete({ _id: id });
         return res;
     } catch (err: any) {
-        throw new Error("Error Occured Deleting Product");
+        throw new Error(err.message);
     }
 }
 
-export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb, updateProductByIdFromDb, deleteProductByIdFromDb };
+// product search system
+const searchProductsInDb = async (searchTerm: string) => {
+    try {
+        const query = {
+            $or: [
+                { name: { $regex: new RegExp(searchTerm, "i") } },
+                { category: { $regex: new RegExp(searchTerm, "i") } },
+                { tags: { $in: [searchTerm] } }
+            ]
+        };
+
+        const products = await ProductModel.find(query);
+        console.log(products);
+        return products;
+
+    } catch (err: any) {
+        throw new Error(err.message);
+    }
+}
+
+export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb, updateProductByIdFromDb, deleteProductByIdFromDb, searchProductsInDb };
