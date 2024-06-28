@@ -67,5 +67,25 @@ const retrieveProductById = async (req: Request, res: Response) => {
     }
 }
 
+// controller for updating product info by id
+const updateProduct = async (req: Request, res: Response) => {
+    try {
+        const info = req.body;
+        const id = req.params.productId;
+        const result = ProductServices.updateProductByIdFromDb(id, info);
 
-export const productController = { createProduct, retrieveProduct, retrieveProductById };
+        res.status(200).json({
+            success: true,
+            message: "Product updated successfully!",
+            data: result
+        });
+    } catch (err: any) {
+        res.status(500).json({
+            success: true,
+            message: err.message,
+        });
+    }
+}
+
+
+export const productController = { createProduct, retrieveProduct, retrieveProductById, updateProduct };

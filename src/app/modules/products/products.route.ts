@@ -8,5 +8,7 @@ productRouter.post("/", productController.createProduct);
 productRouter.get("/", productController.retrieveProduct);
 // route for retrieving product by id
 productRouter.get("/:productId", productController.retrieveProductById);
+// route for updating product by id
+productRouter.put("/:productId", productController.updateProduct);
 
 export default productRouter;

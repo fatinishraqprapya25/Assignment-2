@@ -32,4 +32,15 @@ const retrieveProductByIdFromDb = async (id: string) => {
     }
 }
 
-export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb };
+// update product by id
+const updateProductByIdFromDb = async (id: string, info: any) => {
+    try {
+        const result = await ProductModel.findOneAndUpdate({ _id: id }, info);
+        console.log(id, info)
+        return result;
+    } catch (err: any) {
+        throw new Error(err.message);
+    }
+}
+
+export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb, updateProductByIdFromDb };
