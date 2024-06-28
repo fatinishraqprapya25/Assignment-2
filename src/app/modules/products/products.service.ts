@@ -42,4 +42,14 @@ const updateProductByIdFromDb = async (id: string, info: any) => {
     }
 }
 
-export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb, updateProductByIdFromDb };
+// delete product by id
+const deleteProductByIdFromDb = async (id: string) => {
+    try {
+        const res = await ProductModel.findOneAndDelete({ _id: id });
+        return res;
+    } catch (err: any) {
+        throw new Error("Error Occured Deleting Product");
+    }
+}
+
+export const ProductServices = { insertProductIntoDb, retrieveDataFromDb, retrieveProductByIdFromDb, updateProductByIdFromDb, deleteProductByIdFromDb };
