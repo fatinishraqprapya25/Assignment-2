@@ -37,4 +37,19 @@ const retrieveOrders = async (req: Request, res: Response) => {
     }
 }
 
-export const orderController = { createOrder, retrieveOrders };
+// retrieve orders by user email
+const retrieveOrdersByEmail = async (req: Request, res: Response) => {
+    try {
+        const email = req.params.email;
+        const result = await ordersService.retrievingOrdersByEmailFromDb(email);
+        res.status(200).json({
+            success: true,
+            message: "Orders fetched successfully for user email!",
+            data: result
+        });
+    } catch (err: any) {
+
+    }
+}
+
+export const orderController = { createOrder, retrieveOrders, retrieveOrdersByEmail };

@@ -6,5 +6,7 @@ const orderRouter = express.Router();
 orderRouter.post("/", orderController.createOrder);
 // Retrieve Orders
 orderRouter.get("/", orderController.retrieveOrders);
+// Retrieve Orders
+orderRouter.get("/:email", orderController.retrieveOrders);
 
 export default orderRouter;
