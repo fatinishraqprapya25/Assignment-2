@@ -6,6 +6,7 @@ const productRouter = express.Router();
 productRouter.post("/", productController.createProduct);
 // route for retrieving all products
 productRouter.get("/", productController.retrieveProduct);
+productRouter.get("/:productId", productController.retrieveProductById);
 // route for updating product by id
 productRouter.put("/:productId", productController.updateProduct);
 // route for deleting product by id
