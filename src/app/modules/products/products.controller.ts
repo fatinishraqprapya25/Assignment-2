@@ -51,7 +51,6 @@ const retrieveProduct = async (req: Request, res: Response) => {
 const retrieveProductById = async (req: Request, res: Response) => {
     try {
         const id = req.params.productId;
-        console.log(id);
         const result = await ProductServices.retrieveProductByIdFromDb(id);
         res.status(200).json({
             success: true,
