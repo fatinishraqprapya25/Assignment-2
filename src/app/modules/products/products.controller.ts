@@ -32,18 +32,24 @@ const createProduct = async (req: Request, res: Response) => {
 
 // controller for retrieving all products
 const retrieveProduct = async (req: Request, res: Response) => {
-    try {
-        const products = await ProductServices.retrieveDataFromDb();
-        res.status(200).json({
-            success: true,
-            message: "Products fetched successfully!",
-            data: products
-        });
-    } catch (err: any) {
-        res.status(500).json({
-            success: false,
-            message: err.message,
-        });
+    const searchTerm = req.query.searchTerm as string;
+    if (req.query.searchTerm) {
+        await searchProducts(req, res, searchTerm);
+        return;
+    } else {
+        try {
+            const products = await ProductServices.retrieveDataFromDb();
+            res.status(200).json({
+                success: true,
+                message: "Products fetched successfully!",
+                data: products
+            });
+        } catch (err: any) {
+            res.status(500).json({
+                success: false,
+                message: err.message,
+            });
+        }
     }
 }
 
@@ -105,10 +111,8 @@ const deleteProduct = async (req: Request, res: Response) => {
 
 
 // search product
-const searchProducts = async (req: Request, res: Response) => {
-    console.log("searching...")
+const searchProducts = async (req: Request, res: Response, searchTerm: string) => {
     try {
-        const searchTerm = req.params.searchTerm;
         const result: any = await ProductServices.searchProductsInDb(searchTerm);
         res.status(200).json({
             success: true,
