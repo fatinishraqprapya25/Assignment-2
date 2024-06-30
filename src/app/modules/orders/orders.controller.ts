@@ -23,10 +23,10 @@ const createOrder = async (req: Request, res: Response) => {
             message: error.message,
         });
 
-    } catch (err) {
+    } catch (err: any) {
         res.status(200).json({
             success: false,
-            message: "Error Occured on Order Creation",
+            message: err.message,
         });
     }
 }
