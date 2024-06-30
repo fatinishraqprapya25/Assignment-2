@@ -33,6 +33,12 @@ const createOrder = async (req: Request, res: Response) => {
 
 // controller for order retrieving
 const retrieveOrders = async (req: Request, res: Response) => {
+    const email = req.query.email as string;
+    if (email) {
+        console.log("hi...")
+        retrieveOrdersByEmail(req, res, email);
+        return;
+    }
     try {
         const result = await OrderModel.find({});
         res.status(200).json({
@@ -49,9 +55,8 @@ const retrieveOrders = async (req: Request, res: Response) => {
 }
 
 // retrieve orders by user email
-const retrieveOrdersByEmail = async (req: Request, res: Response) => {
+const retrieveOrdersByEmail = async (req: Request, res: Response, email: string) => {
     try {
-        const email = req.params.email;
         const result = await ordersService.retrievingOrdersByEmailFromDb(email);
         res.status(200).json({
             success: true,

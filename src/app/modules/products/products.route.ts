@@ -12,7 +12,6 @@ productRouter.get("/:productId", productController.retrieveProductById);
 productRouter.put("/:productId", productController.updateProduct);
 // route for deleting product by id
 productRouter.delete("/:productId", productController.deleteProduct);
-// route for searching product
-// productRouter.get("/search/:searchTerm", productController.searchProducts);
+
 
 export default productRouter;
