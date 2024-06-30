@@ -35,7 +35,6 @@ const createOrder = async (req: Request, res: Response) => {
 const retrieveOrders = async (req: Request, res: Response) => {
     const email = req.query.email as string;
     if (email) {
-        console.log("hi...")
         retrieveOrdersByEmail(req, res, email);
         return;
     }
