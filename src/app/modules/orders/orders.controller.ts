@@ -48,7 +48,10 @@ const retrieveOrdersByEmail = async (req: Request, res: Response) => {
             data: result
         });
     } catch (err: any) {
-
+        res.status(500).json({
+            success: true,
+            message: err.message,
+        });
     }
 }
 
