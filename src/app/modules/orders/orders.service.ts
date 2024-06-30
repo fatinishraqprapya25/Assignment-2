@@ -24,7 +24,7 @@ const retrievingAllOrderFromDb = async () => {
 // Retreiving orders by Email Address
 const retrievingOrdersByEmailFromDb = async (email: string) => {
     try {
-        const result = await OrderModel.find({ email });
+        const result = await OrderModel.find({ email: email });
         return result;
     } catch (err: any) {
         throw new Error(err.message);
