@@ -32,6 +32,10 @@ const createProduct = async (req: Request, res: Response) => {
 
 // controller for retrieving all products
 const retrieveProduct = async (req: Request, res: Response) => {
+    if (req.query.productId) {
+        retrieveDataById(req, res, req.query.productId as string);
+        return;
+    }
     try {
         const products = await ProductServices.retrieveDataFromDb();
         res.status(200).json({
@@ -47,12 +51,9 @@ const retrieveProduct = async (req: Request, res: Response) => {
     }
 }
 
-// controller for finding product by id
-const retrieveProductById = async (req: Request, res: Response) => {
+const retrieveDataById = async (req: Request, res: Response, productId: string) => {
     try {
-        const id = req.params.productId;
-        console.log(id);
-        const result = await ProductServices.retrieveProductByIdFromDb(id);
+        const result = await ProductServices.retrieveProductByIdFromDb(productId);
         res.status(200).json({
             success: true,
             message: "Product fetched successfully!",
@@ -126,4 +127,5 @@ const searchProducts = async (req: Request, res: Response) => {
 
 
 // exports
-export const productController = { createProduct, retrieveProduct, retrieveProductById, updateProduct, deleteProduct, searchProducts };
+export const productController = { createProduct, retrieveProduct, updateProduct, deleteProduct, searchProducts };
+// retrieveProductById,
